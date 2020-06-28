@@ -1,1 +1,1 @@
-web: sh setup.sh && streamlit run temporal_analysis.py
+web: sh setup.sh && streamlit run email_analysis.py
