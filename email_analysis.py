@@ -25,6 +25,41 @@ granularity = st.selectbox(
     ("Yearly", "Monthly", "Weekly", "Daily")
 )
 
+academic = st.checkbox('academic')
+cfp = st.checkbox('cfp')
+funding = st.checkbox('funding')
+misc = st.checkbox('misc')
+personal = st.checkbox('personal')
+research = st.checkbox('research')
+service_external = st.checkbox('service-external')
+service_internal = st.checkbox('service-internal')
+system = st.checkbox('system')
+teaching = st.checkbox('teaching')
+twitter = st.checkbox('twitter')
+
+def selected_df(df_new, df_old):
+    if (academic):
+        df_new['academic'] = df_old['academic']
+    if (cfp):
+        df_new['cfp'] = df_old['cfp']
+    if (funding):
+        df_new['funding'] = df_old['funding']
+    if (misc):
+        df_new['misc'] = df_old['misc']
+    if (personal):
+        df_new['personal'] = df_old['personal']
+    if (research):
+        df_new['research'] = df_old['research']
+    if (service_external):
+        df_new['service-external'] = df_old['service-external']
+    if (service_internal):
+        df_new['service-internal'] = df_old['service-internal']
+    if (system):
+        df_new['system'] = df_old['system']
+    if (teaching):
+        df_new['teaching'] = df_old['teaching']
+    if (twitter):
+        df_new['twitter'] = df_old['twitter']
 
 if (granularity == 'Yearly'):
     st.subheader('Number of emails in each year')
@@ -33,7 +68,9 @@ if (granularity == 'Yearly'):
     df_yearly = df_yearly.groupby(pd.Grouper(key='date', freq='Y'))['academic','cfp','funding','misc','personal','research','service-external','service-internal','system','teaching','twitter'].agg('sum').reset_index('date')
     df_yearly['date'] = df_yearly['date'].dt.year
     df_yearly = df_yearly.set_index('date')
-    st.bar_chart(df_yearly)
+    df_d_yearly= pd.DataFrame(index=df_yearly.index)
+    selected_df(df_d_yearly,df_yearly)
+    st.bar_chart(df_d_yearly)
 
 if (granularity == 'Monthly'):
     st.subheader('Number of emails in monthly granularity')
@@ -47,6 +84,8 @@ if (granularity == 'Monthly'):
     df_monthly = df_monthly.loc[df_monthly['date'].dt.date <= end_month]
     df_monthly = df_monthly.groupby(pd.Grouper(key='date', freq='M'))['academic','cfp','funding','misc','personal','research','service-external','service-internal','system','teaching','twitter'].agg('sum').reset_index('date')
     df_monthly = df_monthly.set_index('date')
+    df_d_monthly = pd.DataFrame(index=df_monthly.index)
+    selected_df(df_d_monthly, df_monthly)
     st.bar_chart(df_monthly)
 
 if (granularity == 'Weekly'):
@@ -61,7 +100,9 @@ if (granularity == 'Weekly'):
     df_weekly = df_weekly.loc[df_weekly['date'].dt.date <= end_week]
     df_weekly = df_weekly.groupby(pd.Grouper(key='date', freq='W'))['academic','cfp','funding','misc','personal','research','service-external','service-internal','system','teaching','twitter'].agg('sum').reset_index('date')
     df_weekly = df_weekly.set_index('date')
-    st.bar_chart(df_weekly)
+    df_d_weekly = pd.DataFrame(index=df_weekly.index)
+    selected_df(df_d_weekly, df_weekly)
+    st.bar_chart(df_d_weekly)
 
 if (granularity == 'Daily'):
     st.subheader('Number of published documents in daily granularity')
@@ -74,7 +115,9 @@ if (granularity == 'Daily'):
     df_daily = df.loc[df['date'].dt.date >= start_day]
     df_daily = df_daily.loc[df_daily['date'].dt.date <= end_day]
     df_daily = df_daily.set_index('date')
-    st.bar_chart(df_daily)
+    df_d_daily = pd.DataFrame(index=df_daily.index)
+    selected_df(df_d_daily, df_daily)
+    st.bar_chart(df_d_daily)
 
 
 
