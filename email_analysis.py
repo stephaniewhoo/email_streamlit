@@ -86,7 +86,7 @@ if (granularity == 'Monthly'):
     df_monthly = df_monthly.set_index('date')
     df_d_monthly = pd.DataFrame(index=df_monthly.index)
     selected_df(df_d_monthly, df_monthly)
-    st.bar_chart(df_monthly)
+    st.bar_chart(df_d_monthly)
 
 if (granularity == 'Weekly'):
     st.subheader('Number of emails in weekly granularity')
