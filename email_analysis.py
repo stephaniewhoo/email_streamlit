@@ -25,16 +25,21 @@ granularity = st.selectbox(
     ("Yearly", "Monthly", "Weekly", "Daily")
 )
 
-academic = st.checkbox('academic')
-cfp = st.checkbox('cfp')
-funding = st.checkbox('funding')
-misc = st.checkbox('misc')
-personal = st.checkbox('personal')
-research = st.checkbox('research')
-service_external = st.checkbox('service-external')
-service_internal = st.checkbox('service-internal')
+
+#aca = st.sidebar.checkbox('Academic')
+#cfp1 = st.sidebar.checkbox('Cfp')
+#fund = st.sidebar.checkbox('Funding')
+
+academic = st.checkbox('academic', value=True)
+cfp = st.checkbox('cfp', value=True)
+funding = st.checkbox('funding', value=True)
+misc = st.checkbox('misc', value=True)
+personal = st.checkbox('personal', value=True)
+research = st.checkbox('research', value=True)
+service_external = st.checkbox('service-external', value=True)
+service_internal = st.checkbox('service-internal', value=True)
 system = st.checkbox('system')
-teaching = st.checkbox('teaching')
+teaching = st.checkbox('teaching', value=True)
 twitter = st.checkbox('twitter')
 
 def selected_df(df_new, df_old):
